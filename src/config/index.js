@@ -1,4 +1,5 @@
 const MainRouter = require("../routes");
+const { cors } = require("../middlewares");
 
 module.exports = (app) => {
   return (logger, { json, urlencoded }) => {
@@ -7,6 +8,7 @@ module.exports = (app) => {
       extended: false
     }));
     app.use(logger("dev"));
+    app.use(cors("*"));
     app.use("/api/v1", MainRouter);
   }
 }
