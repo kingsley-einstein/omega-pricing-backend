@@ -75,5 +75,23 @@ module.exports = {
         body: error
       });
     }
+  },
+  async getLoggedUser(req, res) {
+    try {
+      const { user } = req;
+      const data = {
+        id: user.id,
+        email: user.email
+      };
+      res.status(200).json({
+        statusCode: 200,
+        body: data
+      });
+    } catch (error) {
+      res.status(500).json({
+        statusCode: 500,
+        body: error
+      });
+    }
   }
 };
