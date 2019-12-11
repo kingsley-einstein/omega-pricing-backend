@@ -8,5 +8,6 @@ router.post("/phone/add", Auth.checkToken, PhoneController.addPhone);
 router.patch("/phone/edit/:id", Auth.checkToken, PhoneController.editPhone);
 router.delete("/phone/delete/:id", Auth.checkToken, PhoneController.deletePhone);
 router.get("/phone/getAll", PhoneController.findAllPhones);
+router.get("/phones/:store", PhoneController.findByStore);
 
 module.exports = router;

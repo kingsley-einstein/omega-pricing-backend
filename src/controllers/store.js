@@ -1,10 +1,10 @@
-const { Phone } = require("../db");
+const { Store } = require("../db");
 
 module.exports = {
-  async addPhone(req, res) {
+  async create(req, res) {
     try {
       const { body } = req;
-      const data = await Phone.create(body);
+      const data = await Store.create(body);
       res.status(201).json({
         statusCode: 201,
         body: data
@@ -16,12 +16,27 @@ module.exports = {
       });
     }
   },
-  async editPhone(req, res) {
+  async getStores(req, res) {
+    try {
+      const body = await Store.findAll();
+      res.status(200).json({
+        statusCode: 200,
+        body
+      });
+    } catch (error) {
+      res.status(500).json({
+        statusCode: 500,
+        body: error
+      });
+    }
+  },
+  async editStore(req, res) {
     try {
       const { body, params } = req;
-      const update = await Phone.update(body, {
+      const { id } = params;
+      const update = await Store.update(body, {
         where: {
-          id: params.id
+          id
         }
       });
       res.status(200).json({
@@ -35,50 +50,17 @@ module.exports = {
       });
     }
   },
-  async deletePhone(req, res) {
+  async deleteStore(req, res) {
     try {
       const { id } = req.params;
-      const deleted = await Phone.destroy({
+      const items = await Store.destroy({
         where: {
           id
         }
       });
       res.status(200).json({
         statusCode: 200,
-        body: `${deleted} item(s) deleted`
-      });
-    } catch (error) {
-      res.status(500).json({
-        statusCode: 500,
-        body: error
-      });
-    }
-  },
-  async findAllPhones(req, res) {
-    try {
-      const phones = await Phone.findAll();
-      res.status(200).json({
-        statusCode: 200,
-        body: phones
-      });
-    } catch (error) {
-      res.status(500).json({
-        statusCode: 500,
-        body: error
-      });
-    }
-  },
-  async findByStore(req, res) {
-    try {
-      const { store } = req.params;
-      const body = await Phone.findAll({
-        where: {
-          store
-        }
-      });
-      res.status(200).json({
-        statusCode: 200,
-        body
+        body: `${items} item(s) deleted`
       });
     } catch (error) {
       res.status(500).json({
