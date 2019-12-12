@@ -16,6 +16,20 @@ module.exports = {
       });
     }
   },
+  async getStore(req, res) {
+    try {
+      const body = await Store.findByPk(req.params.id);
+      res.status(200).json({
+        statusCode: 200,
+        body
+      });
+    } catch (error) {
+      res.status(500).json({
+        statusCode: 500,
+        body: error
+      });
+    }
+  },
   async getStores(req, res) {
     try {
       const body = await Store.findAll();
