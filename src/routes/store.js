@@ -1,11 +1,12 @@
 const { Router } = require("express");
 const { StoreController } = require("../controllers");
+const { Auth } = require("../middlewares");
 
 const router = Router();
 
-router.post("/store", StoreController.create);
-router.get("/stores", StoreController.getStores);
-router.get("/store/:id", StoreController.editStore);
-router.delete("/store/:id", StoreController.deleteStore);
+router.post("/store", Auth.checkToken, StoreController.create);
+router.get("/stores", Auth.checkToken, StoreController.getStores);
+router.get("/store/:id", Auth.checkToken, StoreController.editStore);
+router.delete("/store/:id", Auth.checkToken, StoreController.deleteStore);
 
 module.exports = router;

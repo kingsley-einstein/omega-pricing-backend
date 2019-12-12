@@ -2,7 +2,6 @@ const { Router } = require("express");
 const AdminRouter = require("./admin");
 const PhoneRouter = require("./phone");
 const StoreRouter = require("./store");
-const { Auth } = require("../middlewares");
 
 const router = Router();
 
@@ -15,6 +14,6 @@ router.get("/", (req, res) => {
 
 router.use("/", AdminRouter);
 router.use("/", PhoneRouter);
-router.use("/", Auth.checkToken, StoreRouter);
+router.use("/", StoreRouter);
 
 module.exports = router;
